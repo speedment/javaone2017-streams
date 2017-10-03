@@ -1,0 +1,12 @@
+**/nb-configuration.xml
+**/nbactions.xml
+**/settings.properties
+**/sonar-project.properties
+**.versionsBackup
+**/nbproject/
+**/target/
+**/.sonar
+**/.idea
+*.md5
+*.iml
+*~
