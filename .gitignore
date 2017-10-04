@@ -7,8 +7,6 @@
 **/target/
 **/.sonar
 **/.idea
-**/generated
-**/sakila
 *.md5
 *.iml
 *~
