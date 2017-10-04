@@ -2,9 +2,10 @@ Code repository for "Database Actions with Java 9 Stream Syntax Instead of SQL" 
 
 ## Database
 ```
-Type:     MariaDB
-Host:     35.203.190.83
-Port:     3306
-User:     sakila
-Password: sakila
+Type:          MariaDB
+Host:          35.203.190.83
+Port:          3306
+Database name: sakila
+User:          sakila
+Password:      sakila
 ```
