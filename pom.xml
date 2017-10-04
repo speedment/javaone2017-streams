@@ -50,6 +50,19 @@
         <groupId>com.speedment</groupId>
         <artifactId>speedment-maven-plugin</artifactId>
         <version>${speedment.version}</version>
+
+        <dependencies>
+          <dependency>
+            <groupId>com.speedment.plugins</groupId>
+            <artifactId>spring-generator</artifactId>
+            <version>${speedment.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <components>
+            <component>com.speedment.plugins.spring.SpringGeneratorBundle</component>
+          </components>
+        </configuration>
       </plugin>
     </plugins>
   </build>
