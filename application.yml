@@ -1,2 +1,5 @@
 jdbc:
   password: sakila
+
+server:
+  port: 9090
