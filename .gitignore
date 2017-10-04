@@ -7,6 +7,8 @@
 **/target/
 **/.sonar
 **/.idea
+**/generated/
+**/com/company/
 *.md5
 *.iml
 *~
