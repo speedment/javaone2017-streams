@@ -1,28 +1,22 @@
 package com.company;
 
 import com.company.sakila.SakilaApplication;
-import com.company.sakila.SakilaApplicationBuilder;
 import com.company.sakila.sakila.sakila.film.Film;
 import com.company.sakila.sakila.sakila.film.FilmManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PreDestroy;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.speedment.runtime.core.ApplicationBuilder.LogType.STREAM;
-
+@RestController
 public class SakilaExample {
-    private SakilaApplication app;
-    private FilmManager films;
 
-    public SakilaExample() {
-        app = new SakilaApplicationBuilder()
-            .withPassword("sakila")
-            .build();
-
-        films = app.getOrThrow(FilmManager.class);
-    }
+    private @Autowired SakilaApplication app;
+    private @Autowired FilmManager films;
 
     private Stream<Film> getFilmsByRating(String rating) {
         return films.stream()
@@ -57,6 +51,7 @@ public class SakilaExample {
             );
     }
 
+    @PreDestroy
     private void stop() {
         app.stop();
     }
