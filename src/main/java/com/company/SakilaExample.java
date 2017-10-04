@@ -39,6 +39,13 @@ public class SakilaExample {
             .findAny();
     }
 
+    private Stream<Film> search(Stream<Film> stream, String keyWord) {
+        return stream.filter(
+            Film.TITLE.containsIgnoreCase(keyWord).or(
+                Film.DESCRIPTION.containsIgnoreCase(keyWord)
+            ));
+    }
+
     private void stop() {
         app.stop();
     }
@@ -56,6 +63,9 @@ public class SakilaExample {
         } else {
             System.out.println("There is no such film");
         }
+
+        long pg13redFilmCount = search(getFilmsByRating("PG-13"), "red").count();
+        System.out.printf("There are %d 'RED' PG-13 films%n", pg13redFilmCount);
 
         stop();
     }
