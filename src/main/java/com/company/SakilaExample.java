@@ -4,19 +4,29 @@ import com.company.sakila.SakilaApplication;
 import com.company.sakila.sakila.sakila.film.Film;
 import com.company.sakila.sakila.sakila.film.FilmManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PreDestroy;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 public class SakilaExample {
 
     private @Autowired SakilaApplication app;
     private @Autowired FilmManager films;
+
+    @GetMapping("/films/byRating/{rating}")
+    List<Film> getFilmsByRatingPath(@PathVariable("rating") String rating) {
+        return getFilmsByRating(rating).collect(toList());
+    }
 
     private Stream<Film> getFilmsByRating(String rating) {
         return films.stream()
@@ -41,7 +51,8 @@ public class SakilaExample {
             ));
     }
 
-    private Map<String, Long> groupByRating(String keyWord) {
+    @GetMapping("/films/byKeyword/{keyword}")
+    private Map<String, Long> groupByRating(@PathVariable("keyword") String keyWord) {
         return search(films.stream(), keyWord)
             .collect(
                 Collectors.groupingBy(
