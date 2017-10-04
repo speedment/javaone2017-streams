@@ -5,7 +5,9 @@ import com.company.sakila.SakilaApplicationBuilder;
 import com.company.sakila.sakila.sakila.film.Film;
 import com.company.sakila.sakila.sakila.film.FilmManager;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.speedment.runtime.core.ApplicationBuilder.LogType.STREAM;
@@ -17,7 +19,6 @@ public class SakilaExample {
     public SakilaExample() {
         app = new SakilaApplicationBuilder()
             .withPassword("sakila")
-            .withLogging(STREAM)
             .build();
 
         films = app.getOrThrow(FilmManager.class);
@@ -46,6 +47,16 @@ public class SakilaExample {
             ));
     }
 
+    private Map<String, Long> groupByRating(String keyWord) {
+        return search(films.stream(), keyWord)
+            .collect(
+                Collectors.groupingBy(
+                    Film.RATING.getter(),
+                    Collectors.counting()
+                )
+            );
+    }
+
     private void stop() {
         app.stop();
     }
@@ -66,6 +77,13 @@ public class SakilaExample {
 
         long pg13redFilmCount = search(getFilmsByRating("PG-13"), "red").count();
         System.out.printf("There are %d 'RED' PG-13 films%n", pg13redFilmCount);
+
+
+        System.out.println("Considering 'RED' films, ");
+        groupByRating("red").forEach(
+            (rating, count) ->
+                System.out.printf(" - there are %d %s films%n", count, rating)
+        );
 
         stop();
     }
